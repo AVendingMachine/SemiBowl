@@ -1,12 +1,38 @@
 body {
-  --main-bg-color: rgb(37, 38, 56);
+  --main-bg-color: #04151F;
+  --main-content-color: #1c312f;
+  --main-text-color: aliceblue;
   margin: 0px;
   padding: 0px;
   background-color: var(--main-bg-color);
   color: aliceblue;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+a {
+  text-decoration: none;
 }
 .navbar {
-  background-color: black;
+  background-color: var(--main-bg-color);
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+}
+.navbar a {
+  color:var(--main-text-color);
   padding: 10px;
+}
+.content {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: var(--main-content-color);
+  height:100vh;
+  padding-top: 10px;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.content h1 {
+  border-bottom: 1px;
+  border-bottom-style:solid;
+  border-color: var(--main-text-color);
 }
 
