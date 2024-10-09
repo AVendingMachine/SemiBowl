@@ -4,6 +4,6 @@ import { RouterLink} from 'vue-router'
 <template>
     <div class="navbar">
         <RouterLink to="/">Semibowl</RouterLink>
-        <RouterLink to="/about">1000Lit</RouterLink>
+        <RouterLink to="/1000lit">1000Lit</RouterLink>
     </div>
 </template>
