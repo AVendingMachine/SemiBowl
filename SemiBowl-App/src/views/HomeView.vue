@@ -8,7 +8,7 @@
       because I wanted more control over how the content was displayed.
     </p>
     <h2>Features</h2>
-    <h3>1000Lit</h3>
+    <h3>Authors</h3>
     <p>
       The main reason I created this site in the first place. Essentially a
       quiz on the 1000 most frequent authors in the Quizbowl literature sphere.

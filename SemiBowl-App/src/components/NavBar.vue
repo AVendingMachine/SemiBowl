@@ -3,7 +3,12 @@ import { RouterLink} from 'vue-router'
 </script>
 <template>
     <div class="navbar">
-        <RouterLink to="/">Semibowl</RouterLink>
-        <RouterLink to="/1000lit">Authors</RouterLink>
+        <RouterLink to="/" class="title">Semibowl</RouterLink>
+        <RouterLink to="/Authors">Authors</RouterLink>
     </div>
 </template>
+<style lang="css" scoped>
+.title {
+    padding: 20px;
+}
+</style>
