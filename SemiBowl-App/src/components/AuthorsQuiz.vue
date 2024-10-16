@@ -3,13 +3,14 @@ import { ref } from 'vue'
 import { questions } from '@/assets/questions';
 const clues = questions //Object array which stores all of the author questions
 const showQuiz = ref("false")
-let questionOrder = [0]
-let randomQuestionOrder = [0]
-let currentQuestionID = 0
-let currentDifficulty = 0
+const regularQuestionOrder = ref([0])
+const randomQuestionOrder = ref([0])
 const rightWrong = ref("bunga")
 const currentInput = ref("")
+const winMessage = ref("")
+let questionOrder = [0]
 showQuiz.value = false
+randomQuestionOrder.value = [0]
 
 function randomInt(min,max) {
     min = Math.ceil(min)
@@ -18,11 +19,12 @@ function randomInt(min,max) {
 }
 function randomizeArray(orderedArray) {
     let randomizedArray = [0]
+    let copiedArray = orderedArray.slice()
     let n = 0
-    while (orderedArray.length > 0) {
-        let currentValue = randomInt(0,orderedArray.length-1)
-        randomizedArray[n] = orderedArray[currentValue]
-        orderedArray.splice(currentValue,1)
+    while (copiedArray.length > 0) {
+        let currentValue = randomInt(0,copiedArray.length-1)
+        randomizedArray[n] = copiedArray[currentValue]
+        copiedArray.splice(currentValue,1)
         n++
     }
     return randomizedArray
@@ -32,35 +34,40 @@ async function startQuiz() {
     for (let i = 0;i<clues.length;i++) {
         questionOrder[i] = i;
     }
-    randomQuestionOrder = randomizeArray(questionOrder)
-    currentQuestionID = randomQuestionOrder[0]
+    regularQuestionOrder.value = questionOrder
+    randomQuestionOrder.value = randomizeArray(questionOrder)
 }
 function advanceQuestion(answer) {
-    if (answer.toLowerCase() == clues[currentQuestionID].author.toLowerCase()) {
+    if (answer.toLowerCase() == clues[randomQuestionOrder.value[0]].author.toLowerCase()) {
         rightWrong.value = "right"
+        regularQuestionOrder.value.shift()
+        randomQuestionOrder.value.shift()
+    }
+    else if (randomQuestionOrder.value.length == 0) {
+        showQuiz.value = false
     }
     else {
         rightWrong.value = "wrong"
+        regularQuestionOrder.value.push(regularQuestionOrder.value[0])
+        regularQuestionOrder.value.shift()
+        randomQuestionOrder.value.push(randomQuestionOrder.value[0])
+        randomQuestionOrder.value.shift()
     }
+    currentInput.value = ""
 }
 </script>
 <template>
     <button v-if="!showQuiz" @click="startQuiz">Start</button>
     <div v-if="showQuiz" class="quiz">
-        <h2>Question {{ clues[currentQuestionID].questionID+1 }}.</h2>
-        <p>{{ clues[currentQuestionID].easyWork }}</p>
+        <h2>Question {{ regularQuestionOrder[0]+1 }}.</h2>
+        <p>{{ clues[randomQuestionOrder[0]].easyWork }}</p>
+        <p>{{ winMessage }}</p>
         <div v-if="showQuiz">
-            <input type="text" v-model.trim="currentInput"><br>
-            <input type="submit" @click="advanceQuestion(currentInput)">
+            <form  @submit.prevent="advanceQuestion(currentInput)">
+                <input type="text" v-model.trim="currentInput"><br><br>
+                <button>Submit</button>
+            </form>
         </div>
-        <h4>DEBUG INFO</h4>
-        <p>- currentInput: {{ currentInput }}</p>
-        <p>- clues[currentQuestionId].author: {{ clues[currentQuestionID].author }}</p>
-        <p>- randomQuestionOrder: {{ randomQuestionOrder }}</p>
-        <p>- rightWrong: {{ rightWrong }}</p>
-
-        <!--<p>Questions dump for debug: {{ clues }}</p>-->
-
     </div>
 </template>
 <style lang="css" scoped>

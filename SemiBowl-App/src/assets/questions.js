@@ -5,7 +5,7 @@ const questions = [
         easyClue: "This clue should be rather vague, but still useful",
         hardwork: "HARDWORK",
         hardClue: "This clue should be rather easy, considering the obscurness of the work",
-        author: "John Doe"
+        author: "Doe"
     },
     {
         questionID: 1,
