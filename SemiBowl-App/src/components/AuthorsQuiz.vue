@@ -19,7 +19,7 @@ function randomInt(min,max) {
     return Math.floor(Math.random()*(max-min +1)) + min
 }
 function randomizeArray(orderedArray) {
-    let randomizedArray = [0]++
+    let randomizedArray = [0]
     let copiedArray = orderedArray.slice()
     let n = 0
     while (copiedArray.length > 0) {
@@ -33,7 +33,7 @@ function randomizeArray(orderedArray) {
 async function startQuiz() {
     showQuiz.value=true
     for (let i = 0;i<clues.length;i++) {
-        questionOrder[i] = i;+
+        questionOrder[i] = i;
     }
     regularQuestionOrder.value = questionOrder
     randomQuestionOrder.value = randomizeArray(questionOrder)
