@@ -1,14 +1,15 @@
 <script setup lang="js">
 import { ref } from 'vue'
 import { questions } from '@/assets/questions';
-const clues = questions //Object array which stores all of the author questions
+const clues = questions //Object array which stores all the author questions
 const showQuiz = ref(false)
+const showAnswer = ref(false)
 const regularQuestionOrder = ref([0])
 const randomQuestionOrder = ref([0])
-const rightWrong = ref("bunga")
 const currentInput = ref("")
 const winMessage = ref("")
 const difficulty = ref(0)
+const isCorrect = ref(false)
 let questionOrder = [0]
 showQuiz.value = false
 randomQuestionOrder.value = [0]
@@ -39,29 +40,15 @@ async function startQuiz() {
     randomQuestionOrder.value = randomizeArray(questionOrder)
 }
 function checkIfCorrect(answer) {
-  currentInput.value = ""
-  if (answer.toLowerCase() === clues[randomQuestionOrder.value[0]].author.toLowerCase()) {
-    regularQuestionOrder.value.shift()
-    randomQuestionOrder.value.shift()
-    return true
-  }
-  else if (randomQuestionOrder.value.length === 0) {
-    difficulty.value++
-  }
-  else {
-    regularQuestionOrder.value.push(regularQuestionOrder.value[0])
-    regularQuestionOrder.value.shift()
-    randomQuestionOrder.value.push(randomQuestionOrder.value[0])
-    randomQuestionOrder.value.shift()
-    return false
-  }
+  return answer.toLowerCase() === clues[randomQuestionOrder.value[0]].author.toLowerCase();
 }
 function advanceQuestion(answer) {
     currentInput.value = ""
-    if (answer.toLowerCase() === clues[randomQuestionOrder.value[0]].author.toLowerCase()) {
+    isCorrect.value = checkIfCorrect(answer)
+    showAnswer.value = true
+    if (isCorrect.value) {
         regularQuestionOrder.value.shift()
         randomQuestionOrder.value.shift()
-        return true
     }
     else if (randomQuestionOrder.value.length === 0) {
         difficulty.value++
@@ -71,7 +58,6 @@ function advanceQuestion(answer) {
         regularQuestionOrder.value.shift()
         randomQuestionOrder.value.push(randomQuestionOrder.value[0])
         randomQuestionOrder.value.shift()
-        return false
     }
 }
 
@@ -83,15 +69,16 @@ function advanceQuestion(answer) {
         <p>{{ clues[randomQuestionOrder[0]].easyWork }}</p>
         <p>{{ winMessage }}</p>
         <div v-if="showQuiz">
-            <form  @submit.prevent="checkIfCorrect(currentInput)">
+            <form @submit.prevent="advanceQuestion(currentInput)" v-if="!showAnswer">
                 <input type="text" v-model.trim="currentInput"><br><br>
-                <button>Submit</button>
+                <button type="submit"> Submit </button>
+            </form>
+            <form @submit.prevent="showAnswer = !showAnswer" v-if="showAnswer">
+              <p v-if="isCorrect">Correct!</p>
+              <p v-if="!isCorrect">Incorrect, the correct answer was {{ clues[randomQuestionOrder[0]].author }}</p>
+              <button type="submit"> Continue </button>
             </form>
         </div>
     </div>
 </template>
-<style lang="css" scoped>
-.hide {
-    visibility: hidden !important;
-}
-</style>
+
