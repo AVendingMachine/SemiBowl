@@ -1,5 +1,5 @@
 <script setup lang="js">
-import { nextTick, onMounted, ref } from "vue";
+import { nextTick, ref } from "vue";
 import { questions } from "@/assets/questions";
 const clues = questions; //Object array which stores all the author questions
 const showQuiz = ref(false);
