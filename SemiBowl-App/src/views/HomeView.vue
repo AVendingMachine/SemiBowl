@@ -17,7 +17,7 @@
     </p>
     <h2>To-Do List:</h2>
     <ol>
-      <li>Get the author's quiz up and running</li>
+      <li>Get the authors quiz up and running</li>
       <li>Make a tool to write/format quiz questions</li>
       <li>Write more questions for the author's quiz</li>
       <li>Check for bad code</li>
