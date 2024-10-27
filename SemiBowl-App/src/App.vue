@@ -5,7 +5,7 @@ import { RouterView } from "vue-router";
 
 <template>
   <header>
-    <Topbar />
+    <Topbar style="position: fixed" />
     <div class="wrapper">
       <nav></nav>
     </div>

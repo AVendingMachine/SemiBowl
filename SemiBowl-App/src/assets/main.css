@@ -8,7 +8,6 @@ body {
   --main-content-color: #08283e;
   --main-text-color: aliceblue;
   margin: 0;
-  padding: 0;
   background-color: var(--main-bg-color);
   color: aliceblue;
   font-family: Open-Sans, sans-serif;
@@ -20,60 +19,59 @@ p {
 a {
   text-decoration: none;
 }
+
 .navbar {
   background-color: var(--main-bg-color);
-  padding-top: 20px;
-  padding-bottom: 20px;
-
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 100%;
 }
 .navbar a {
   color:var(--main-text-color);
-  padding: 10px;
+  padding: 0.5rem;
 }
-.content {
+main {
   margin: 0 auto;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  height:100vh;
-  padding-top: 10px;
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-top: 2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
   max-width: 800px;
-}
-.content h1 {
-  border-bottom: 1px;
-  border-bottom-style:solid;
-  border-color: var(--main-text-color);
 }
 .quiz {
   background-color: var(--main-content-color);
-  padding: 20px;
-  border-radius: 10px;
+  padding: 2rem;
+  border-radius: 1rem;
 }
 button {
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
-  border-width: 2px;
-  border-radius: 5px;
+  border-width: 0;
+  border-radius: 0.4rem;
   border-style: solid;
   border-color: var(--main-text-color);
   display: flex;
   justify-content: right;
+  font-size: large;
+  padding: 0.5rem;
+}
+.codeIcon {
+  height: 0.8rem;
+  float: right;
+  padding-right: 1rem;
+  padding-top: 0.25rem;
 }
 .quiz input[type="text"] {
   width: 100%;
-  height: 2em;
+  height: 2rem;
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
   font-family: Open-Sans, sans-serif;
   border: none;
-  border-radius: 5px;
-  padding-left:10px;
+  border-radius: 0.4rem;
+  padding-left:1rem;
 }
 textarea:focus, input:focus{
-  outline: none;
+  outline: aliceblue none;
 }
-textarea:focus, button:focus{
-  outline: none;
-}
+
 

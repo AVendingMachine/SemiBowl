@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <main>
     <h1>Semibowl</h1>
     <h2>About</h2>
     <p>
@@ -25,5 +25,5 @@
       <li>Expand to more quiz types</li>
       <li>Possibly add science olympiad stuff</li>
     </ol>
-  </div>
+  </main>
 </template>
