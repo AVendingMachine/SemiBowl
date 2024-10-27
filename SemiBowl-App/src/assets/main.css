@@ -1,12 +1,21 @@
+@font-face {
+  font-family: 'Open-Sans';
+  src: url('fonts/opensans-webfont.woff');
+}
 body {
   --main-bg-color: #04151F;
-  --main-content-color: #1c312f;
+  --main-bcontent-color: #1c312f;
+  --main-content-color: #08283e;
   --main-text-color: aliceblue;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   background-color: var(--main-bg-color);
   color: aliceblue;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Open-Sans, sans-serif;
+  line-height: 2;
+}
+p {
+  line-height: 2;
 }
 a {
   text-decoration: none;
@@ -22,13 +31,14 @@ a {
   padding: 10px;
 }
 .content {
+  margin: 0 auto;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background-color: var(--main-content-color);
   height:100vh;
   padding-top: 10px;
-  padding-left: 10%;
-  padding-right: 10%;
+  padding-left: 2em;
+  padding-right: 2em;
+  max-width: 800px;
 }
 .content h1 {
   border-bottom: 1px;
@@ -36,16 +46,34 @@ a {
   border-color: var(--main-text-color);
 }
 .quiz {
-  background-color: var(--main-bg-color);
+  background-color: var(--main-content-color);
   padding: 20px;
   border-radius: 10px;
 }
-.quiz button {
+button {
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
   border-width: 2px;
-  border-radius: 2px;
+  border-radius: 5px;
   border-style: solid;
   border-color: var(--main-text-color);
+  display: flex;
+  justify-content: right;
+}
+.quiz input[type="text"] {
+  width: 100%;
+  height: 2em;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+  font-family: Open-Sans, sans-serif;
+  border: none;
+  border-radius: 5px;
+  padding-left:10px;
+}
+textarea:focus, input:focus{
+  outline: none;
+}
+textarea:focus, button:focus{
+  outline: none;
 }
 

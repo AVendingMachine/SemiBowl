@@ -1,18 +1,18 @@
 <script setup>
-import Topbar from './components/NavBar.vue';
-import { RouterView } from 'vue-router'
+import Topbar from "./components/NavBar.vue";
+import { RouterView } from "vue-router";
 </script>
 
 <template>
   <header>
-    <Topbar/>
+    <Topbar />
     <div class="wrapper">
-      <nav>
-      </nav>
+      <nav></nav>
     </div>
   </header>
-  <RouterView />
+  <body>
+    <RouterView />
+  </body>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
