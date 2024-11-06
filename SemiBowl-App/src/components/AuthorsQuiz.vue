@@ -1,5 +1,5 @@
 <script setup lang="js">
-import { nextTick, ref } from "vue";
+import { nextTick, onUnmounted, ref } from "vue";
 import { questions } from "@/assets/questions";
 const clues = questions; //Object array which stores all the author questions
 const showQuiz = ref(false);
@@ -43,6 +43,15 @@ function startQuiz() {
   nextTick(function () {
     inputBox.value.focus();
   });
+  window.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      if (showAnswer.value) {
+        advanceQuestion();
+      } else if (showAnswer.value === false) {
+        checkAnswer(currentInput.value);
+      }
+    }
+  });
 }
 function checkIfCorrect(answer) {
   return (
@@ -54,17 +63,15 @@ function checkAnswer(answer) {
   currentInput.value = "";
   isCorrect.value = checkIfCorrect(answer);
   showAnswer.value = true;
-  nextTick(function () {
-    continueButton.value.focus();
-  });
 }
 function advanceQuestion() {
   if (isCorrect.value) {
     regularQuestionOrder.value.shift();
     randomQuestionOrder.value.shift();
-  } else if (randomQuestionOrder.value.length === 0) {
+  } else if (randomQuestionOrder.value.length <= 0) {
     difficulty.value++;
-  } else {
+    randomQuestionOrder.value = randomizeArray(questionOrder);
+  } else if (!isCorrect.value) {
     regularQuestionOrder.value.push(regularQuestionOrder.value[0]);
     regularQuestionOrder.value.shift();
     randomQuestionOrder.value.push(randomQuestionOrder.value[0]);
@@ -79,7 +86,12 @@ function advanceQuestion() {
 <template>
   <button v-if="!showQuiz" @click="startQuiz">Start</button>
   <div v-if="showQuiz" class="quiz">
-    <h2>Question {{ regularQuestionOrder[0] + 1 }}.</h2>
+    <h2>
+      Question
+      {{
+        regularQuestionOrder[0] + 1 + difficulty * regularQuestionOrder.length
+      }}.
+    </h2>
     <p>{{ clues[randomQuestionOrder[0]].easyWork }}</p>
     <p>{{ winMessage }}</p>
     <div v-if="showQuiz">
@@ -88,7 +100,6 @@ function advanceQuestion() {
         v-model.trim="currentInput"
         :disabled="showAnswer"
         ref="inputBox"
-        @keyup.enter="checkAnswer(currentInput)"
       /><br />
       <div v-if="!showAnswer">
         <br />
@@ -100,7 +111,7 @@ function advanceQuestion() {
           Incorrect, the correct answer was
           {{ clues[randomQuestionOrder[0]].author }}
         </p>
-        <button @keyup.enter.prevent="advanceQuestion()" ref="continueButton">
+        <button @click="advanceQuestion()" ref="continueButton">
           Continue
         </button>
       </div>
