@@ -12,6 +12,7 @@ const difficulty = ref(0);
 const isCorrect = ref(false);
 const inputBox = ref(null);
 const continueButton = ref(null);
+const questionDisplay = ref("PLACEHOLDER");
 let questionOrder = [0];
 showQuiz.value = false;
 randomQuestionOrder.value = [0];
@@ -33,13 +34,32 @@ function randomizeArray(orderedArray) {
   }
   return randomizedArray;
 }
-function startQuiz() {
-  showQuiz.value = true;
+function randomizeQuestionOrder() {
   for (let i = 0; i < clues.length; i++) {
     questionOrder[i] = i;
   }
   regularQuestionOrder.value = questionOrder;
   randomQuestionOrder.value = randomizeArray(questionOrder);
+}
+function updateQuestionDisplay() {
+  switch (difficulty.value) {
+    case 0:
+      questionDisplay.value = clues[randomQuestionOrder.value[0]].easyWork;
+      break;
+    case 1:
+      questionDisplay.value = clues[randomQuestionOrder.value[0]].easyClue;
+      break;
+    case 2:
+      questionDisplay.value = clues[randomQuestionOrder.value[0]].hardWork;
+      break;
+    case 3:
+      questionDisplay.value = clues[randomQuestionOrder.value[0]].hardClue;
+      break;
+  }
+}
+function startQuiz() {
+  showQuiz.value = true;
+  randomizeQuestionOrder();
   nextTick(function () {
     inputBox.value.focus();
   });
@@ -52,6 +72,7 @@ function startQuiz() {
       }
     }
   });
+  updateQuestionDisplay();
 }
 function checkIfCorrect(answer) {
   return (
@@ -64,13 +85,15 @@ function checkAnswer(answer) {
   isCorrect.value = checkIfCorrect(answer);
   showAnswer.value = true;
 }
-function advanceQuestion() {
+async function advanceQuestion() {
   if (isCorrect.value) {
-    regularQuestionOrder.value.shift();
-    randomQuestionOrder.value.shift();
-  } else if (randomQuestionOrder.value.length <= 0) {
-    difficulty.value++;
-    randomQuestionOrder.value = randomizeArray(questionOrder);
+    if (randomQuestionOrder.value.length > 1) {
+      regularQuestionOrder.value.shift();
+      randomQuestionOrder.value.shift();
+    } else {
+      difficulty.value++;
+      randomizeQuestionOrder();
+    }
   } else if (!isCorrect.value) {
     regularQuestionOrder.value.push(regularQuestionOrder.value[0]);
     regularQuestionOrder.value.shift();
@@ -81,6 +104,7 @@ function advanceQuestion() {
   nextTick(function () {
     inputBox.value.focus();
   });
+  updateQuestionDisplay();
 }
 </script>
 <template>
@@ -88,11 +112,9 @@ function advanceQuestion() {
   <div v-if="showQuiz" class="quiz">
     <h2>
       Question
-      {{
-        regularQuestionOrder[0] + 1 + difficulty * regularQuestionOrder.length
-      }}.
+      {{ regularQuestionOrder[0] + 1 + difficulty * clues.length }}.
     </h2>
-    <p>{{ clues[randomQuestionOrder[0]].easyWork }}</p>
+    <p>{{ questionDisplay }}</p>
     <p>{{ winMessage }}</p>
     <div v-if="showQuiz">
       <input
