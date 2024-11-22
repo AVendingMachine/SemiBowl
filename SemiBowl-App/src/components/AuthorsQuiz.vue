@@ -3,16 +3,19 @@ import { nextTick, ref } from "vue";
 import { questions } from "@/assets/questions";
 const clues = questions; //Object array which stores all the author questions
 const showQuiz = ref(false);
+const showQuizContent = ref(true);
 const showAnswer = ref(false);
 const regularQuestionOrder = ref([0]);
 const randomQuestionOrder = ref([0]);
 const currentInput = ref("");
 const winMessage = ref("");
 const difficulty = ref(0);
+const maxDifficulty = 3;
 const isCorrect = ref(false);
 const inputBox = ref(null);
 const continueButton = ref(null);
 const questionDisplay = ref("PLACEHOLDER");
+const allowSummary = ref(false);
 let questionOrder = [0];
 showQuiz.value = false;
 randomQuestionOrder.value = [0];
@@ -85,14 +88,28 @@ function checkAnswer(answer) {
   isCorrect.value = checkIfCorrect(answer);
   showAnswer.value = true;
 }
+function resetQuiz() {
+  difficulty.value = 0;
+  showQuizContent.value = true;
+  allowSummary.value = false;
+  startQuiz();
+}
+function showSummary() {
+  showQuizContent.value = false;
+  allowSummary.value = true;
+}
 async function advanceQuestion() {
   if (isCorrect.value) {
     if (randomQuestionOrder.value.length > 1) {
       regularQuestionOrder.value.shift();
       randomQuestionOrder.value.shift();
-    } else {
-      difficulty.value++;
-      randomizeQuestionOrder();
+    } else if (randomQuestionOrder.value.length <= 1) {
+      if (difficulty.value === maxDifficulty) {
+        showSummary();
+      } else {
+        difficulty.value++;
+        randomizeQuestionOrder();
+      }
     }
   } else if (!isCorrect.value) {
     regularQuestionOrder.value.push(regularQuestionOrder.value[0]);
@@ -110,33 +127,39 @@ async function advanceQuestion() {
 <template>
   <button v-if="!showQuiz" @click="startQuiz">Start</button>
   <div v-if="showQuiz" class="quiz">
-    <h2>
-      Question
-      {{ regularQuestionOrder[0] + 1 + difficulty * clues.length }}.
-    </h2>
-    <p>{{ questionDisplay }}</p>
-    <p>{{ winMessage }}</p>
-    <div v-if="showQuiz">
-      <input
-        type="text"
-        v-model.trim="currentInput"
-        :disabled="showAnswer"
-        ref="inputBox"
-      /><br />
-      <div v-if="!showAnswer">
-        <br />
-        <button @click="checkAnswer(currentInput)">Submit</button>
+    <div v-if="showQuizContent">
+      <h2>
+        Question
+        {{ regularQuestionOrder[0] + 1 + difficulty * clues.length }}.
+      </h2>
+      <p>{{ questionDisplay }}</p>
+      <p>{{ winMessage }}</p>
+      <div v-if="showQuiz">
+        <input
+          type="text"
+          v-model.trim="currentInput"
+          :disabled="showAnswer"
+          ref="inputBox"
+        /><br />
+        <div v-if="!showAnswer">
+          <br />
+          <button @click="checkAnswer(currentInput)">Submit</button>
+        </div>
+        <div v-if="showAnswer">
+          <p v-if="isCorrect">Correct!</p>
+          <p v-if="!isCorrect">
+            Incorrect, the correct answer was
+            {{ clues[randomQuestionOrder[0]].author }}
+          </p>
+          <button @click="advanceQuestion()" ref="continueButton">
+            Continue
+          </button>
+        </div>
       </div>
-      <div v-if="showAnswer">
-        <p v-if="isCorrect">Correct!</p>
-        <p v-if="!isCorrect">
-          Incorrect, the correct answer was
-          {{ clues[randomQuestionOrder[0]].author }}
-        </p>
-        <button @click="advanceQuestion()" ref="continueButton">
-          Continue
-        </button>
-      </div>
+    </div>
+    <div v-if="allowSummary">
+      <h2>Summary</h2>
+      <button @click="resetQuiz()">Restart</button>
     </div>
   </div>
 </template>
