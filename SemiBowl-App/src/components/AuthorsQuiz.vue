@@ -1,7 +1,9 @@
 <script setup lang="js">
 import { nextTick, ref } from "vue";
-import { questions } from "@/assets/questions";
-const clues = questions; //Object array which stores all the author questions
+import { questions } from "@/assets/questions copy.js";
+import { LevDistance } from "@/assets/levDistance.js";
+
+const clues = questions; //Object array which stores all the autfhor questions
 const showQuiz = ref(false);
 const showQuizContent = ref(true);
 const showAnswer = ref(false);
@@ -16,6 +18,7 @@ const inputBox = ref(null);
 const continueButton = ref(null);
 const questionDisplay = ref("PLACEHOLDER");
 const allowSummary = ref(false);
+const levi = ref(null);
 let questionOrder = [0];
 showQuiz.value = false;
 randomQuestionOrder.value = [0];
@@ -47,16 +50,16 @@ function randomizeQuestionOrder() {
 function updateQuestionDisplay() {
   switch (difficulty.value) {
     case 0:
-      questionDisplay.value = clues[randomQuestionOrder.value[0]].easyWork;
+      questionDisplay.value = clues[randomQuestionOrder.value[0]].EasyWork;
       break;
     case 1:
-      questionDisplay.value = clues[randomQuestionOrder.value[0]].easyClue;
+      questionDisplay.value = clues[randomQuestionOrder.value[0]].EasyClue;
       break;
     case 2:
-      questionDisplay.value = clues[randomQuestionOrder.value[0]].hardWork;
+      questionDisplay.value = clues[randomQuestionOrder.value[0]].HardWork;
       break;
     case 3:
-      questionDisplay.value = clues[randomQuestionOrder.value[0]].hardClue;
+      questionDisplay.value = clues[randomQuestionOrder.value[0]].HardClue;
       break;
   }
 }
@@ -78,10 +81,21 @@ function startQuiz() {
   updateQuestionDisplay();
 }
 function checkIfCorrect(answer) {
-  return (
-    answer.toLowerCase() ===
-    clues[randomQuestionOrder.value[0]].author.toLowerCase()
+  let sanitizedAnswer = answer.toLowerCase();
+  sanitizedAnswer = sanitizedAnswer.replace(/\s/g, "");
+  levi.value = LevDistance(
+    clues[randomQuestionOrder.value[0]].Answers[0],
+    sanitizedAnswer,
   );
+  for (let i = 0; i < clues[randomQuestionOrder.value[0]].Answers.length; i++) {
+    let currentAnswer = clues[randomQuestionOrder.value[0]].Answers[i];
+    if (currentAnswer === sanitizedAnswer) {
+      return true;
+    } else if (LevDistance(currentAnswer, sanitizedAnswer) <= 3) {
+      return true;
+    }
+  }
+  return false;
 }
 function checkAnswer(answer) {
   currentInput.value = "";
@@ -146,10 +160,11 @@ async function advanceQuestion() {
           <button @click="checkAnswer(currentInput)">Submit</button>
         </div>
         <div v-if="showAnswer">
+          <p>{{ levi }}</p>
           <p v-if="isCorrect">Correct!</p>
           <p v-if="!isCorrect">
             Incorrect, the correct answer was
-            {{ clues[randomQuestionOrder[0]].author }}
+            {{ clues[randomQuestionOrder[0]].Author }}
           </p>
           <button @click="advanceQuestion()" ref="continueButton">
             Continue
