@@ -1,6 +1,6 @@
 <script setup lang="js">
 import { nextTick, ref } from "vue";
-import { questions } from "@/assets/questions copy.js";
+import { questions } from "@/assets/questions.js";
 import { LevDistance } from "@/assets/levDistance.js";
 
 const clues = questions; //Object array which stores all the autfhor questions
