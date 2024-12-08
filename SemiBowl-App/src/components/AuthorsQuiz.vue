@@ -18,7 +18,6 @@ const inputBox = ref(null);
 const continueButton = ref(null);
 const questionDisplay = ref("PLACEHOLDER");
 const allowSummary = ref(false);
-const levi = ref(null);
 let questionOrder = [0];
 showQuiz.value = false;
 randomQuestionOrder.value = [0];
@@ -83,10 +82,6 @@ function startQuiz() {
 function checkIfCorrect(answer) {
   let sanitizedAnswer = answer.toLowerCase();
   sanitizedAnswer = sanitizedAnswer.replace(/\s/g, "");
-  levi.value = LevDistance(
-    clues[randomQuestionOrder.value[0]].Answers[0],
-    sanitizedAnswer,
-  );
   for (let i = 0; i < clues[randomQuestionOrder.value[0]].Answers.length; i++) {
     let currentAnswer = clues[randomQuestionOrder.value[0]].Answers[i];
     if (currentAnswer === sanitizedAnswer) {
@@ -160,7 +155,6 @@ async function advanceQuestion() {
           <button @click="checkAnswer(currentInput)">Submit</button>
         </div>
         <div v-if="showAnswer">
-          <p>{{ levi }}</p>
           <p v-if="isCorrect">Correct!</p>
           <p v-if="!isCorrect">
             Incorrect, the correct answer was
