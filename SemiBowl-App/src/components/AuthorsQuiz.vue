@@ -3,7 +3,7 @@ import { nextTick, ref } from "vue";
 import { questions } from "@/assets/questions.js";
 import { LevDistance } from "@/assets/levDistance.js";
 
-const clues = questions; //Object array which stores all the autfhor questions
+const clues = questions; //Object array which stores all the author questions
 const showQuiz = ref(false);
 const showQuizContent = ref(true);
 const showAnswer = ref(false);
