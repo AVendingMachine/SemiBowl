@@ -101,7 +101,7 @@ func saveFile(filePath string) {
 
 func main() {
 	fmt.Printf("-----------------------\n")
-	fmt.Printf("JFW Quizwriter v2 \n")
+	fmt.Printf("The Quizwriter v2 \n")
 	fmt.Printf("  now with autosaving!\n")
 	fmt.Printf("-----------------------\n")
 	fmt.Printf("> Insert file path: \n")

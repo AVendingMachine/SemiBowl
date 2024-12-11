@@ -1,5 +1,5 @@
 <script setup lang="js">
-import { nextTick, ref } from "vue";
+import { nextTick, ref, onUnmounted } from "vue";
 import { questions } from "@/assets/questions.js";
 import { LevDistance } from "@/assets/levDistance.js";
 
@@ -62,23 +62,27 @@ function updateQuestionDisplay() {
       break;
   }
 }
+const handleKeyUpEvent = (event) => {
+  if (event.key === "Enter") {
+    if (showAnswer.value) {
+      advanceQuestion();
+    } else if (showAnswer.value === false) {
+      checkAnswer(currentInput.value);
+    }
+  }
+};
 function startQuiz() {
   showQuiz.value = true;
   randomizeQuestionOrder();
   nextTick(function () {
     inputBox.value.focus();
   });
-  window.addEventListener("keyup", (event) => {
-    if (event.key === "Enter") {
-      if (showAnswer.value) {
-        advanceQuestion();
-      } else if (showAnswer.value === false) {
-        checkAnswer(currentInput.value);
-      }
-    }
-  });
+  window.addEventListener("keyup", handleKeyUpEvent);
   updateQuestionDisplay();
 }
+onUnmounted(() => {
+  window.removeEventListener("keyup", handleKeyUpEvent);
+});
 function checkIfCorrect(answer) {
   let sanitizedAnswer = answer.toLowerCase();
   sanitizedAnswer = sanitizedAnswer.replace(/\s/g, "");
