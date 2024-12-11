@@ -11,6 +11,8 @@ import (
 
 var entryNumber int
 var questions []Info
+var file os.File
+var filePath string
 
 type Info struct {
 	QuestionID int
@@ -84,29 +86,40 @@ func addNewEntry() {
 	newEntry.Answers = addAnswers(newEntry.Answers)
 	questions = append(questions, newEntry)
 	printInfoSlice()
+	saveFile(filePath)
 	addNewEntry()
 }
 
+func saveFile(filePath string) {
+	finalOutput, err := json.Marshal(questions)
+	if err != nil {
+		fmt.Printf("> Error marshalling JSON file into string, %s", err)
+		return
+	}
+	os.WriteFile(filePath, finalOutput, 0777)
+}
+
 func main() {
-	var filePath string
 	fmt.Printf("-----------------------\n")
-	fmt.Printf("JFW Quizwriter v1 \n")
+	fmt.Printf("JFW Quizwriter v2 \n")
+	fmt.Printf("  now with autosaving!\n")
 	fmt.Printf("-----------------------\n")
 	fmt.Printf("> Insert file path: \n")
 	fmt.Scanln(&filePath)
 	file, err := os.Open(filePath)
 	if err != nil {
-		fmt.Printf("> Error opening file path")
+		fmt.Printf("> Error opening file path: %s", err)
 		return
 	}
+	defer file.Close()
 	fileByte, err := io.ReadAll(file)
 	if err != nil {
-		fmt.Printf("> Error converting to byte data")
+		fmt.Printf("> Error converting to byte data: %s", err)
 		return
 	}
 	err = json.Unmarshal(fileByte, &questions)
 	if err != nil {
-		fmt.Printf("> Error unmarshalling JSON file into slice")
+		fmt.Printf("> Error unmarshalling JSON file into slice: %s", err)
 		return
 	}
 	entryNumber = len(questions) - 1
@@ -114,7 +127,7 @@ func main() {
 	addNewEntry()
 	finalOutput, err := json.Marshal(questions)
 	if err != nil {
-		fmt.Printf("> Error marshalling JSON file into string")
+		fmt.Printf("> Error marshalling JSON file into string: %s", err)
 		return
 	}
 	file.Close()

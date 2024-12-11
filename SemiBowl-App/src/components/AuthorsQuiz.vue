@@ -86,7 +86,7 @@ function checkIfCorrect(answer) {
     let currentAnswer = clues[randomQuestionOrder.value[0]].Answers[i];
     if (currentAnswer === sanitizedAnswer) {
       return true;
-    } else if (LevDistance(currentAnswer, sanitizedAnswer) <= 3) {
+    } else if (LevDistance(currentAnswer, sanitizedAnswer) <= 2) {
       return true;
     }
   }
