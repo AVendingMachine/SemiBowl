@@ -36,7 +36,7 @@ export const questions = [
   {
     QuestionID: 3,
     EasyWork:
-      'This author wrote "Tess of the D\'Urbervilles", "The Mayor Casterbridge", and "Jude the Obscure"',
+      'This author wrote "Tess of the D\'Urbervilles", "The Mayor of Casterbridge", and "Jude the Obscure"',
     EasyClue:
       'This author set many of his novels in his fictional county of Wessex, and in one of his works includes "Little Father Time" and the birth of Sorrow.',
     HardWork: 'This author wrote "Far from the Madding Crowd"',
@@ -157,5 +157,74 @@ export const questions = [
       "allanpoe",
       "edgarallanpoe",
     ],
+  },
+  {
+    QuestionID: 13,
+    EasyWork: 'This author included "Death, be not proud" in his Holy Sonnets',
+    EasyClue:
+      'This author ends a work by informing a character that "thou shalt die" because it is "slave to fate, chance, king and desperate men". He also said "makes me end where I begun" and describes how "virtuous men pass mildly away" in another poem.',
+    HardWork:
+      'This author wrote "A Valediction: Forbidding Mourning" and "The Flea"',
+    HardClue:
+      'This author wrote about how "our two bloods mingled be" after an insect "sucks me first and now sucks thee" in one poem. He also coined the terms "for whom the bell tolls" and "no man is an island".',
+    Author: "John Donne",
+    Answers: ["donne", "johndonne"],
+  },
+  {
+    QuestionID: 14,
+    EasyWork:
+      'This author wrote "The Tyger" and "The Lamb" in his "Songs of Innocence and Experience"',
+    EasyClue:
+      'This author wrote of the "fearful symmetry" and of a creature "burning bright / in the forests of the night". This author also asked a creature "Dost thou know who made thee" in one poem.',
+    HardWork:
+      'This author was a huge fan of Milton, even writing a poem about him. He also wrote "The Chimney Sweeper" and "A Poison Tree".',
+    HardClue:
+      'In a poem by this author, a boy cries when his head is shaved. That poem was about Tom Dacre and another poem describes the narrator\'s foe "outstretched beneath" the title object.',
+    Author: "William Blake",
+    Answers: ["blake", "williamblake"],
+  },
+  {
+    QuestionID: 15,
+    EasyWork: 'This author wrote "Pygmalion"',
+    EasyClue:
+      'In a play by this author one character exclaims "Not bloody likely!" centering around a flower girl and a bet between Colonel Pickering and Henry Higgins.',
+    HardWork: 'This author wrote "Man and Superman" and "Arms and the Man"',
+    HardClue:
+      'A work by this author takes its title from the first line of the Aenied, and a work includes the nickname "chocolate-cream soldier".',
+    Author: "George Bernard Shaw",
+    Answers: ["georgebernardshaw", "shaw", "georgeshaw"],
+  },
+  {
+    QuestionID: 16,
+    EasyWork: 'This author wrote "The Dumb Waiter" and "The Birthday Party"',
+    EasyClue:
+      'In a play by this author, Lulu is nearly attacked during a game of Blind Man\'s Bluff. In other play, two men argue other the phrase "light the kettle". One play centers on an event put on by Meg for Stanley Webber.',
+    HardWork: 'This author wrote "The Homecoming" and "Betrayal"',
+    HardClue:
+      'This author wrote a "comedy of menace" and one play by this author takes place in reverse chronological order.',
+    Author: "Harold Pinter",
+    Answers: ["pinter", "haroldpinter"],
+  },
+  {
+    QuestionID: 17,
+    EasyWork: 'This author wrote "Mrs. Dalloway" and "To the Lighthouse"',
+    EasyClue:
+      'This author concluded that to write fiction, a woman must have money and a "room of her own". A novel by this author also includes the section "Time Passes" about the Isle of Skye by the Ramsay family.',
+    HardWork: 'This author wrote "Orlando"',
+    HardClue:
+      "In a work by this author, Septimus Smith ends his own life while the title character holds a party. In another work, a poet lives throughout history while changing gender each time.",
+    Author: "Virginia Woolf",
+    Answers: ["woolf", "virginiawoolf"],
+  },
+  {
+    QuestionID: 18,
+    EasyWork: 'This author wrote "The Jew of Malta" and "Doctor Faustus"',
+    EasyClue:
+      "In a work by this author, a title character, Barabas, falls into a boiling cauldren after vying for the hand of Abigail.",
+    HardWork: 'This author wrote "Tamburlaine"',
+    HardClue:
+      "In a work by this author, a shepherd becomes the ruler of Persia after overthrowing Cosroe.",
+    Author: "Christopher Marlowe",
+    Answers: ["marlowe", "christophermarlowe"],
   },
 ];

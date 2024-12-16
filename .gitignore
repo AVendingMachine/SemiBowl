@@ -28,3 +28,4 @@ SemiBowl-App/.vscode/extensions.json
 *.sw?
 
 *.tsbuildinfo
+/SemiBowl-App/src/assets/questions.json
