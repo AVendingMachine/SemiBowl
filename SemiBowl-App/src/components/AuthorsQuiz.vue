@@ -159,7 +159,10 @@ async function advanceQuestion() {
           <button @click="checkAnswer(currentInput)">Submit</button>
         </div>
         <div v-if="showAnswer">
-          <p v-if="isCorrect">Correct!</p>
+          <p v-if="isCorrect">
+            Correct! the answer should have been
+            {{ clues[randomQuestionOrder[0]].Author }}
+          </p>
           <p v-if="!isCorrect">
             Incorrect, the correct answer was
             {{ clues[randomQuestionOrder[0]].Author }}
