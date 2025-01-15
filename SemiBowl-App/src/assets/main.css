@@ -89,16 +89,17 @@ textarea:focus, input:focus{
   }
   h2 {
     font-size: medium;
-    padding-left: 0.2rem;
+    padding-left: 0.4rem;
   }
   h1 {
     padding-top: 1rem;
     font-size: large;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   input[type="text"] {
     font-size: 16px;
+    padding-right: 0;
   }
   button {
     font-size: small;
@@ -107,7 +108,7 @@ textarea:focus, input:focus{
     display: none;
   }
   p {
-    padding-left: 0.2rem;
+    padding-left: 0.4rem;
   }
 }
 
