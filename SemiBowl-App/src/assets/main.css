@@ -73,8 +73,6 @@ button {
   font-family: Open-Sans, sans-serif;
   border: none;
   border-radius: 0.4rem;
-  padding-left:1rem;
-
 }
 textarea:focus, input:focus{
   outline: aliceblue none;
