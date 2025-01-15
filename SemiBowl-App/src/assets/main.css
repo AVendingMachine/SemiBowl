@@ -85,13 +85,17 @@ textarea:focus, input:focus{
   }
   .quiz {
     border-radius: 0;
+    padding: 0.5rem;
   }
-  .quiz h2 {
+  h2 {
     font-size: medium;
+    padding-left: 0.2rem;
   }
   h1 {
     padding-top: 1rem;
     font-size: large;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
   }
   input[type="text"] {
     font-size: 16px;
@@ -101,6 +105,9 @@ textarea:focus, input:focus{
   }
   details {
     display: none;
+  }
+  p {
+    padding-left: 0.2rem;
   }
 }
 
