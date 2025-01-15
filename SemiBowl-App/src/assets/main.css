@@ -20,6 +20,7 @@ a {
   text-decoration: none;
 }
 
+
 .navbar {
   background-color: var(--main-bg-color);
   padding-top: 1rem;
@@ -30,6 +31,7 @@ a {
   color:var(--main-text-color);
   padding: 0.5rem;
 }
+
 main {
   margin: 0 auto;
   padding-top: 2rem;
@@ -38,9 +40,12 @@ main {
   max-width: 800px;
 }
 .quiz {
-  background-color: var(--main-content-color);
+  background-color: rgba(8,40,62,0.5);
   padding: 2rem;
   border-radius: 1rem;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 1px solid rgba(8,40,62,0.2);
 }
 button {
   background-color: var(--main-bg-color);
@@ -51,7 +56,7 @@ button {
   border-color: var(--main-text-color);
   display: flex;
   justify-content: right;
-  font-size: large;
+  font-size: medium;
   padding: 0.5rem;
 }
 .codeIcon {
@@ -69,9 +74,36 @@ button {
   border: none;
   border-radius: 0.4rem;
   padding-left:1rem;
+
 }
 textarea:focus, input:focus{
   outline: aliceblue none;
+}
+
+@media (max-width: 700px) {
+  main {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .quiz {
+    border-radius: 0;
+  }
+  .quiz h2 {
+    font-size: medium;
+  }
+  h1 {
+    padding-top: 1rem;
+    font-size: large;
+  }
+  input[type="text"] {
+    font-size: 16px;
+  }
+  button {
+    font-size: small;
+  }
+  details {
+    display: none;
+  }
 }
 
 
